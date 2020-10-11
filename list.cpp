@@ -1,8 +1,6 @@
 #include <iostream>
 #include <cstring>
 #include<vector>
-#include <stdio.h>
-#include <string.h>
 
 using namespace std;
 
@@ -13,6 +11,16 @@ struct student
   int id;
   float gpa;
 };
+//operator overload for struct
+ostream &operator<<(ostream &os, const student &val) {
+  os
+    << "Name: " << val.fName << " " << val.lName
+    << ", ID: " << val.id
+    << ", GPA: " << val.gpa
+    << endl;
+
+  return os;
+}
 
 void add(vector<student*>*);
 
@@ -43,7 +51,7 @@ int main()
     {
       for(vector<student*>::iterator i = list->begin(); i != list->end(); i++)
       {
-        cout << *i;
+        cout << **i;
       }
       cout << "print" << endl;
     }
