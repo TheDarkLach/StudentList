@@ -11,8 +11,10 @@ struct student
   int id;
   float gpa;
 };
+
 //operator overload for struct
-ostream &operator<<(ostream &os, const student &val) {
+ostream &operator<<(ostream &os, const student &val) 
+{
   os
     << "Name: " << val.fName << " " << val.lName
     << ", ID: " << val.id
@@ -23,6 +25,7 @@ ostream &operator<<(ostream &os, const student &val) {
 }
 
 void add(vector<student*>*);
+//void add(vector<student*>& paramlist);
 
 int main() 
 {
@@ -33,7 +36,7 @@ int main()
 
   while (run == true)
   {
-    cout << "\nWould you like to ADD, DELETE, or PRINT" << endl;
+    cout << "\nWould you like to ADD, DELETE, PRINT, or QUIT" << endl;
     cin >> cmd;
 
     if (strcmp(cmd,"ADD") == 0)
@@ -44,8 +47,24 @@ int main()
     }
     else if (strcmp(cmd,"DELETE") == 0)
     {
-      cout << "delete" << endl;
-      
+      int ID;
+      cout << "ID of student you want to delete: ";
+
+      cin >> ID;
+      int position = 0;
+      for (vector<student*>::iterator j = list->begin(); j != list->end(); ++j)
+      {
+        if((*j) -> id == ID)
+        {
+          list->erase(list->begin() + position);
+          break;
+        }
+        else
+        {
+          position++;
+        }
+      }
+
     }
     else if (strcmp(cmd,"PRINT") == 0)
     {
@@ -53,7 +72,10 @@ int main()
       {
         cout << **i;
       }
-      cout << "print" << endl;
+    }
+    else if (strcmp(cmd,"QUIT") == 0)
+    {
+      exit(0);
     }
     else
     {
@@ -62,23 +84,23 @@ int main()
 
   }
 }
-  void add(vector<student*>* paramlist)
-  {
-    student* s = new student();
-    s->fName = new char[25];
-    s->lName = new char[25];
+void add(vector<student*>* paramlist)
+{
+  student* s = new student();
+  s->fName = new char[25];
+  s->lName = new char[25];
 
-    cout << "Enter first name" << endl;
-    cin >> s->fName;
+  cout << "Enter first name" << endl;
+  cin >> s->fName;
 
-    cout << "Enter last name" << endl;
-    cin >> s->lName;
+  cout << "Enter last name" << endl;
+  cin >> s->lName;
 
-    cout << "Enter id number" << endl;
-    cin >> s->id;
+  cout << "Enter id number" << endl;
+  cin >> s->id;
 
-    cout << "Enter GPA" << endl;
-    cin >> s->gpa;
+  cout << "Enter GPA" << endl;
+  cin >> s->gpa;
 
-    paramlist->push_back(s);
-  }
+  paramlist->push_back(s);
+}
